@@ -1,0 +1,18 @@
+{
+  "extends": "expo/tsconfig.base",
+  "baseUrl": ".",
+  "compilerOptions": {
+    "module": "ESNext",
+    "strict": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@utils/*": ["./src/shared/utils/*"],
+      "@hooks/*": ["./src/shared/hooks/*"],
+      "@components/*": ["./src/shared/components/*"],
+      "@navigation/*": ["./src/shared/navigation/*"],
+      "@assets/*": ["./src/shared/assets/*"],
+      "@screens/*": ["./src/shared/screens/*"]
+    }
+  }
+}

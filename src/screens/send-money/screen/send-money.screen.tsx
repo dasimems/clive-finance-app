@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import ContainerComponent from "@/shared/components/container/container.component";
 import ScreenHeaderComponent from "@/shared/components/headers/screen-header/screen-header.component";
 import KeyboardViewLayout from "@/shared/components/keyboard-view/keyboard-view.layout";
@@ -85,22 +85,25 @@ const SendMoneyScreen = () => {
     mode: "onChange",
   });
   const { goBack } = useNavigation();
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      showMessage({
-        message: "Money sent successfully",
-        type: "success",
-      });
-      reset();
-      goBack();
-    } catch (error) {
-      showMessage({
-        message: "Failed to send money",
-        type: "danger",
-      });
-    }
-  });
+  const onSubmit = useCallback(
+    async (data) => {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        showMessage({
+          message: "Money sent successfully",
+          type: "success",
+        });
+        reset();
+        goBack();
+      } catch (error) {
+        showMessage({
+          message: "Failed to send money",
+          type: "danger",
+        });
+      }
+    },
+    [reset, goBack]
+  );
   return (
     <ContainerComponent isSafeAreaView className="py-6 gap-6">
       <ScreenHeaderComponent title="Send Money" className="px-horizontal" />
@@ -228,7 +231,7 @@ const SendMoneyScreen = () => {
             )}
           />
           <ButtonComponent
-            onPress={onSubmit}
+            onPress={handleSubmit(onSubmit)}
             disabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           >

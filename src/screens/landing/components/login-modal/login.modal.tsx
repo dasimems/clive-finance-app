@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { memo, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import DraggableModal from "@/shared/components/modals/draggable-modal/draggable-modal";
 import ModalHeaderComponent, {
   EModalHeaderButtonState,
@@ -15,16 +15,61 @@ import InputFieldComponent from "@/shared/components/form/input-field/input-fiel
 import ButtonComponent from "@/shared/components/button/button.component";
 import DividerComponent from "@/shared/components/divider/divider.component";
 import KeyboardViewLayout from "@/shared/components/keyboard-view/keyboard-view.layout";
+import { useNavigation } from "@react-navigation/native";
+import { UnauthenticatedStackParamList } from "@/navigations/unauthenticated-navigation";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Controller, useForm } from "react-hook-form";
+import { joiResolver } from "@hookform/resolvers/joi";
+import Joi from "joi";
 
 const INPUT_CLASSNAME = "rounded-full";
+
+type TLoginForm = {
+  email: string;
+  password: string;
+};
+
+const schema = Joi.object<TLoginForm>({
+  email: Joi.string().email().required().messages({
+    "string.email": "Invalid email address",
+    "string.required": "Email is required",
+    "any.required": "Email is required",
+  }),
+  password: Joi.string().required().messages({
+    "string.required": "Password is required",
+    "any.required": "Password is required",
+  }),
+});
+
+const defaultValues: TLoginForm = {
+  email: "",
+  password: "",
+};
 
 const LoginModal: React.FC<{ visible: boolean; onClose: () => void }> = ({
   visible,
   onClose,
 }) => {
+  const { navigate } =
+    useNavigation<
+      NativeStackNavigationProp<UnauthenticatedStackParamList, "otp">
+    >();
   const [activeTab, setActiveTab] = useState<EModalHeaderButtonState>(
     EModalHeaderButtonState.PERSONAL
   );
+  const handleOnLogin = useCallback(() => {
+    onClose();
+    navigate("otp");
+  }, [onClose, navigate]);
+  const {
+    control,
+    handleSubmit,
+    formState: { isValid, isSubmitting },
+  } = useForm<TLoginForm>({
+    defaultValues,
+    resolver: joiResolver(schema),
+    mode: "onChange",
+  });
   return (
     <DraggableModal
       onClose={onClose}
@@ -44,23 +89,47 @@ const LoginModal: React.FC<{ visible: boolean; onClose: () => void }> = ({
             Login to your account
           </TextComponent>
 
-          <InputFieldComponent
-            label="Email"
-            inputClassName={INPUT_CLASSNAME}
-            placeholder="Enter your email address"
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <InputFieldComponent
+                label="Email"
+                inputClassName={INPUT_CLASSNAME}
+                placeholder="Enter your email address"
+                onChangeText={(text) => onChange(text)}
+                value={value || ""}
+                error={error?.message}
+              />
+            )}
           />
-          <InputFieldComponent
-            label="Password"
-            inputClassName={INPUT_CLASSNAME}
-            placeholder="Enter your password"
-            secureTextEntry
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <InputFieldComponent
+                label="Password"
+                inputClassName={INPUT_CLASSNAME}
+                placeholder="Enter your password"
+                secureTextEntry
+                onChangeText={(text) => onChange(text)}
+                value={value || ""}
+                error={error?.message}
+              />
+            )}
           />
           <View className="flex-row justify-end">
             <TextComponent className="text-sm text-primary underline">
               Forgot password?
             </TextComponent>
           </View>
-          <ButtonComponent>Login</ButtonComponent>
+          <ButtonComponent
+            onPress={handleSubmit(handleOnLogin)}
+            disabled={!isValid || isSubmitting}
+            isLoading={isSubmitting}
+          >
+            {isSubmitting ? "Logging in..." : "Login"}
+          </ButtonComponent>
           <View className="flex-row items-center gap-3">
             <DividerComponent className="border-dashed" />
             <TextComponent className="text-sm opacity-60">

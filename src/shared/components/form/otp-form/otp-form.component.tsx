@@ -81,7 +81,7 @@ const OtpFormComponent: React.FC<{
         ))}
       </View>
       {error && (
-        <View className="flex flex-row items-start gap-2">
+        <View className="flex flex-row items-center justify-center gap-2">
           <CircleExclamationIcon color="#ef4444" />
           <TextComponent className="text-sm text-red-500">
             {error}

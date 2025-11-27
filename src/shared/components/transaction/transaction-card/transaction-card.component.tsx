@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { memo, useMemo } from "react";
 import TextComponent from "../../text/text.component";
 import { cn } from "@/shared/utils/classnames";
@@ -6,6 +6,8 @@ import { format } from "date-fns";
 import MoneySendIcon from "@/assets/icons/money-send.icon";
 import MoneyReceiveIcon from "@/assets/icons/money-receive.icon";
 import StampDueIcon from "@/assets/icons/stamp-due.icon";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AuthenticatedStackParamList } from "@/navigations/authenticated-navigation";
 
 export enum ETransactionType {
   DEBIT = "DEBIT",
@@ -85,6 +87,8 @@ const TransactionCard: React.FC<TTransactionCardProp> = ({
   date,
   className,
 }) => {
+  const { navigate } =
+    useNavigation<NavigationProp<AuthenticatedStackParamList>>();
   const formattedAmount = useMemo(() => {
     return Intl.NumberFormat("en-NG", {
       style: "currency",
@@ -92,7 +96,11 @@ const TransactionCard: React.FC<TTransactionCardProp> = ({
     }).format(amount || 0);
   }, [amount]);
   return (
-    <View
+    <TouchableOpacity
+      activeOpacity={0.95}
+      onPress={() => {
+        navigate("transaction-details", { id: "1" });
+      }}
       className={cn("flex-row items-center justify-between gap-4", className)}
     >
       <View className="flex-1 flex-row items-center justify-start gap-2">
@@ -113,7 +121,7 @@ const TransactionCard: React.FC<TTransactionCardProp> = ({
         {" "}
         {type === ETransactionType.DEBIT ? "-" : "+"} {formattedAmount}
       </TextComponent>
-    </View>
+    </TouchableOpacity>
   );
 };
 

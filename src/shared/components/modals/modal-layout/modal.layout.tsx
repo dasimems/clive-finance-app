@@ -1,6 +1,7 @@
 import { Modal, ModalProps } from "react-native";
 import React, { forwardRef, memo } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export type TModalLayoutProp = {
   onClose: () => void;
@@ -32,7 +33,7 @@ const ModalLayout = forwardRef<Modal, TModalLayoutProp>(
         {...props}
       >
         <GestureHandlerRootView style={{ flex: 1 }}>
-          {children}
+          <SafeAreaProvider className="flex-1">{children}</SafeAreaProvider>
         </GestureHandlerRootView>
       </Modal>
     );

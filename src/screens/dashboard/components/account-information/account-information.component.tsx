@@ -1,10 +1,12 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { memo, useMemo, useState } from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import React, { memo, useCallback, useMemo, useState } from "react";
 import TextComponent from "@/shared/components/text/text.component";
 import useUserStore from "@/shared/stores/user.store";
 import EyeOpenOutlineIcon from "@/assets/icons/eye-open-outline.icon";
 import EyeSlashOutlineIcon from "@/assets/icons/eye-slash-outline.icon";
 import CopyIcon from "@/assets/icons/copy.icon";
+import * as Clipboard from "expo-clipboard";
+import { showMessage } from "react-native-flash-message";
 
 const ICON_SIZE = 20,
   ICON_OPACITY = 0.7;
@@ -19,6 +21,20 @@ const AccountInformationComponent = () => {
       currency: "NGN",
     }).format(balance || 0);
   }, [balance]);
+  const handleCopyAccountNumber = useCallback(async () => {
+    try {
+      await Clipboard.setStringAsync(accountNumber || "");
+      showMessage({
+        type: "success",
+        message: "Account number copied to clipboard",
+      });
+    } catch (error) {
+      showMessage({
+        type: "danger",
+        message: "Failed to copy account number",
+      });
+    }
+  }, [accountNumber]);
   return (
     <View className="gap-4">
       <View className="flex flex-row items-center gap-1">
@@ -28,7 +44,10 @@ const AccountInformationComponent = () => {
         <TextComponent className="font-medium text-sm">
           {accountNumber}
         </TextComponent>
-        <TouchableOpacity activeOpacity={0.95} onPress={() => {}}>
+        <TouchableOpacity
+          activeOpacity={0.95}
+          onPress={handleCopyAccountNumber}
+        >
           <CopyIcon size={16} opacity={ICON_OPACITY} />
         </TouchableOpacity>
       </View>

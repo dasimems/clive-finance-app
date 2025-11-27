@@ -27,6 +27,7 @@ export type TTransactionCardProp = {
   title: string;
   amount: number;
   date: Date;
+  className?: string;
 };
 
 const MOBILE_OPERATOR_PAYMENT_TYPES = [
@@ -46,7 +47,7 @@ const PaymentIcon: React.FC<{
   return (
     <View
       className={cn(
-        "size-10 rounded-full items-center justify-center",
+        "size-10 rounded-full items-center justify-center overflow-hidden",
         shouldUseTransactionIcon &&
           transactionType === ETransactionType.DEBIT &&
           "bg-red-500/10",
@@ -82,6 +83,7 @@ const TransactionCard: React.FC<TTransactionCardProp> = ({
   title,
   amount,
   date,
+  className,
 }) => {
   const formattedAmount = useMemo(() => {
     return Intl.NumberFormat("en-NG", {
@@ -90,7 +92,9 @@ const TransactionCard: React.FC<TTransactionCardProp> = ({
     }).format(amount || 0);
   }, [amount]);
   return (
-    <View className="flex-row items-center justify-between gap-4">
+    <View
+      className={cn("flex-row items-center justify-between gap-4", className)}
+    >
       <View className="flex-1 flex-row items-center justify-start gap-2">
         <PaymentIcon paymentType={paymentType} transactionType={type} />
         <View className="gap-1 flex-1">

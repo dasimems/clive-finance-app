@@ -48,9 +48,7 @@ const ModalHeaderComponent: React.FC<{
       if (headerWidth === 0) return;
       const activeWidth = headerWidth / 2;
       const isPersonalActive = isActive(EModalHeaderButtonState.PERSONAL);
-      translateX.value = withTiming(
-        state === EModalHeaderButtonState.PERSONAL ? 0 : activeWidth
-      );
+      translateX.value = withTiming(isPersonalActive ? 0 : activeWidth);
     },
     [isActive]
   );

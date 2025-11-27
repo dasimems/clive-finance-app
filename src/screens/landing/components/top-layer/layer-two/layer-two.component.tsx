@@ -20,8 +20,6 @@ const LayerTwoComponent = () => {
   const handleOnLayout = useCallback((event: LayoutChangeEvent) => {
     const { height, width } = getComponentLayoutProperties(event);
     setContainerLayoutMeasurement({ height, width });
-    console.log("width", width);
-    console.log("height", height);
     animatedHeight.value = withTiming(width);
   }, []);
   const animatedToOriginalHeight = useCallback((height: number) => {

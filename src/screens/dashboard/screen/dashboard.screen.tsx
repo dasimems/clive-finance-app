@@ -1,11 +1,17 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { memo } from "react";
+import ContainerComponent from "@/shared/components/container/container.component";
 
 const DashboardScreen = () => {
   return (
-    <View>
-      <Text>DashboardScreen</Text>
-    </View>
+    <ContainerComponent isSafeAreaView>
+      <ScrollView
+        contentContainerClassName="px-horizontal"
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      ></ScrollView>
+    </ContainerComponent>
   );
 };
 

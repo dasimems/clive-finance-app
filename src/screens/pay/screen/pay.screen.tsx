@@ -8,7 +8,7 @@ import PayBillsComponent from "../pay-bills/pay-bills.component";
 
 const PayScreen = () => {
   return (
-    <ContainerComponent isSafeAreaView className="py-6 gap-6">
+    <ContainerComponent edges={["top"]} isSafeAreaView className="py-6 gap-6">
       <HeaderComponent />
       <ScrollView contentContainerClassName="px-horizontal gap-7">
         <BeneficiariesComponent />

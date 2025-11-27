@@ -17,6 +17,7 @@ const TransactionScreen = () => {
         renderItem={({ item }) => (
           <TransactionCardComponent className="py-5" {...item} />
         )}
+        removeClippedSubviews
         keyExtractor={(item) => item.title}
         contentContainerClassName="px-horizontal gap-7"
       />

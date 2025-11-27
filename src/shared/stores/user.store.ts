@@ -17,7 +17,7 @@ type TUserStoreActions = {
 };
 
 const initialState: TUserStoreState = {
-  user: {},
+  user: null,
 };
 
 interface IUserStore extends TUserStoreState, TUserStoreActions {}

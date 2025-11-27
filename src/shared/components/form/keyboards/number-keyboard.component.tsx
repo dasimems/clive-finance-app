@@ -43,6 +43,9 @@ const KeyComponent: React.FC<{
   const isDelete = text?.toLowerCase() === "del";
   return (
     <TouchableOpacity
+      accessibilityRole="button"
+      accessibilityLabel={text || undefined}
+      testID={`number-keyboard-key-${text || "empty"}`}
       onPress={() => {
         if (isDelete) {
           deleteFunction();

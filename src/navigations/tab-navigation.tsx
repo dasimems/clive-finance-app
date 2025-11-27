@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator screenOptions={{ headerShown: false, animation: "fade" }}>
       <Tab.Screen
         name="dashboard"
         component={DashboardScreen}

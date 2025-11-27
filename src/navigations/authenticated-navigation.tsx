@@ -3,10 +3,12 @@ import React, { memo } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TransactionsScreen from "@/screens/transactions/screen/transactions.screen";
 import TabNavigation from "./tab-navigation";
+import SendMoneyScreen from "@/screens/send-money/screen/send-money.screen";
 
 export type AuthenticatedStackParamList = {
   tab: undefined;
   transactions: undefined;
+  "send-money": undefined;
 };
 
 const Stack = createNativeStackNavigator<AuthenticatedStackParamList>();
@@ -19,6 +21,7 @@ const AuthenticatedNavigation = () => {
     >
       <Stack.Screen name="tab" component={TabNavigation} />
       <Stack.Screen name="transactions" component={TransactionsScreen} />
+      <Stack.Screen name="send-money" component={SendMoneyScreen} />
     </Stack.Navigator>
   );
 };

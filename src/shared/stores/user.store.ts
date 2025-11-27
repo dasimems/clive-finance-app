@@ -1,6 +1,12 @@
 import { create } from "zustand";
 
-type TUser = {};
+type TUser = {
+  name: string;
+  firstName: string;
+  lastName: string;
+  accountNumber: string;
+  balance: number;
+};
 
 type TUserStoreState = {
   user: TUser | null;

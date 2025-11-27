@@ -2,7 +2,7 @@ import { Text, TextProps } from "react-native";
 import React, { forwardRef, memo } from "react";
 import { cva } from "class-variance-authority";
 import { cn } from "@/shared/utils/classnames";
-const getTextClassName = cva(["text-text font-proximanova"], {
+const getTextClassName = cva(["text-text font-inter"], {
   variants: {
     size: {
       small: "text-xs",

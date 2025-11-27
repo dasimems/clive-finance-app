@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { Path, Svg } from "react-native-svg";
 import { TSVGIconProp } from "./types";
 
-const MessageQuestion: React.FC<TSVGIconProp> = ({
+const SendIcon: React.FC<TSVGIconProp> = ({
   size = 16,
   color = "#000000",
   ...props
@@ -10,14 +10,14 @@ const MessageQuestion: React.FC<TSVGIconProp> = ({
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" {...props}>
       <Path
-        d="M17 18.4301H13L8.54999 21.39C7.88999 21.83 7 21.3601 7 20.5601V18.4301C4 18.4301 2 16.4301 2 13.4301V7.42999C2 4.42999 4 2.42999 7 2.42999H17C20 2.42999 22 4.42999 22 7.42999V13.4301C22 16.4301 20 18.4301 17 18.4301Z"
+        d="M7.39999 6.31997L15.89 3.48997C19.7 2.21997 21.77 4.29997 20.51 8.10997L17.68 16.6C15.78 22.31 12.66 22.31 10.76 16.6L9.91999 14.08L7.39999 13.24C1.68999 11.34 1.68999 8.22997 7.39999 6.31997Z"
         stroke={color}
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <Path
-        d="M12.0001 11.36V11.15C12.0001 10.47 12.4201 10.11 12.8401 9.82001C13.2501 9.54001 13.66 9.18002 13.66 8.52002C13.66 7.60002 12.9201 6.85999 12.0001 6.85999C11.0801 6.85999 10.3401 7.60002 10.3401 8.52002"
+        d="M10.11 13.65L13.69 10.06"
         stroke={color}
         strokeWidth={1.5}
         strokeLinecap="round"
@@ -27,4 +27,4 @@ const MessageQuestion: React.FC<TSVGIconProp> = ({
   );
 };
 
-export default memo(MessageQuestion);
+export default memo(SendIcon);

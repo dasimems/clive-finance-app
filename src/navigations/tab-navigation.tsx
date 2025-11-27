@@ -3,6 +3,7 @@ import React, { memo } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import DashboardScreen from "@/screens/dashboard/screen/dashboard.screen";
 import PayScreen from "@/screens/pay/screen/pay.screen";
+import BottomNavComponent from "@/shared/components/nav/bottom-nav/bottom-nav.component";
 
 export type TabParamList = {
   dashboard: undefined;
@@ -16,7 +17,10 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false, animation: "fade" }}>
+    <Tab.Navigator
+      tabBar={(props) => <BottomNavComponent {...props} />}
+      screenOptions={{ headerShown: false, animation: "fade" }}
+    >
       <Tab.Screen
         name="dashboard"
         component={DashboardScreen}

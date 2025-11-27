@@ -16,9 +16,9 @@ const DashboardScreen = () => {
   const { navigate } =
     useNavigation<NativeStackNavigationProp<AuthenticatedStackParamList>>();
   return (
-    <ContainerComponent isSafeAreaView className="py-6">
+    <ContainerComponent isSafeAreaView edges={["top"]} className="py-6 pb-0">
       <ScrollView
-        contentContainerClassName="px-horizontal gap-7"
+        contentContainerClassName="px-horizontal gap-7 b-10"
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"

@@ -19,7 +19,7 @@ const AuthenticatedNavigation = () => {
   return (
     <Stack.Navigator
       initialRouteName="tab"
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: false, animation: "slide_from_right" }}
     >
       <Stack.Screen name="tab" component={TabNavigation} />
       <Stack.Screen name="transactions" component={TransactionsScreen} />
